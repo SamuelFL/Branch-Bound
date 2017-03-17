@@ -742,6 +742,7 @@ class BBQueue(Queue):
         self.A = []
         self.start = 0
         self.count = 0
+
     def append(self, item):
         self.A.append(item)
 
@@ -753,9 +754,11 @@ class BBQueue(Queue):
         self.A.sort(key=lambda x:x.path_cost)
 
     def pop(self):
+
+        self.count += 1
+        print "Popped node number:" + str(self.count)
+
         print self.A
-        #self.count+=1
-        #print self.count
         return self.A.pop(0)
 
 class FIFOQueue(Queue):
