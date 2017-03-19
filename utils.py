@@ -741,6 +741,7 @@ class BBQueue(Queue):
     def __init__(self):
         self.A = []
         self.start = 0
+        #
         self.count = 0
 
     def append(self, item):
@@ -751,6 +752,7 @@ class BBQueue(Queue):
 
     def extend(self, items):
         self.A.extend(items)
+        #Sorting the list in order the reach the less costy node to evaluate in the next pop
         self.A.sort(key=lambda x:x.path_cost)
 
     def pop(self):
