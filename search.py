@@ -74,7 +74,7 @@ class Node:
 
     def __repr__(self):
         return "<Node %s> " % (self.state,) + "<Cost %d>" % (self.path_cost,)
-        #return "<Node %s>" % (self.state,)
+
 
     def path(self):
         """Create a list of nodes from the root to this node."""
@@ -89,6 +89,7 @@ class Node:
         """Return a list of nodes reachable from this node. [Fig. 3.8]"""
         return [Node(next, self, act,
                      problem.path_cost(self.path_cost, self.state, act, next))
+                     #(problem.h(self)+problem.path_cost(self.path_cost, self.state, act, next)))
                 for (act, next) in problem.successor(self.state)]
 
 
@@ -184,6 +185,9 @@ def iterative_deepening_search(problem):
 
 #______________________________________________________________________________
 # Informed (Heuristic) Search
+
+def branch_and_bound_subestimation(problem):
+    return tree_search(problem, PriorityQueue(f=lambda x: x.path_cost + problem.h(x)))
 
 def best_first_graph_search(problem, f):
     """Search the nodes with the lowest f scores first.

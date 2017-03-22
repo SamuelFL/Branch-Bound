@@ -11,7 +11,9 @@ ab = search.GPSProblem('A', 'B', search.romania)
 #print search.depth_limited_search(ab).path()
 #print search.astar_search(ab).path()
 
-print search.branch_and_bound(ab).path()
+
+#print search.branch_and_bound(ab).path()
+print search.branch_and_bound_subestimation(ab).path()
 
 # Result:
 # [<Node B>, <Node P>, <Node R>, <Node S>, <Node A>] : 101 + 97 + 80 + 140 = 418

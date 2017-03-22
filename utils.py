@@ -763,6 +763,33 @@ class BBQueue(Queue):
         print self.A
         return self.A.pop(0)
 
+class BBSQueue(Queue):
+    """Branch&Bound queue"""
+
+    def __init__(self):
+        self.A = []
+        self.start = 0
+        #
+        self.count = 0
+
+    def append(self, item):
+        self.A.append(item)
+
+    def __len__(self):
+        return len(self.A) - self.start
+
+    def extend(self, items):
+        self.A.extend(items)
+        #Sorting the list in order the reach the less costy node to evaluate in the next pop
+        self.A.sort(key=lambda x:x.hpluspcost)
+
+    def pop(self):
+
+        self.count += 1
+        print "Popped node number:" + str(self.count)
+
+        print self.A
+        return self.A.pop(0)
 class FIFOQueue(Queue):
     """A First-In-First-Out Queue."""
 
@@ -803,6 +830,7 @@ class PriorityQueue(Queue):
         return len(self.A)
 
     def pop(self):
+        print self.A
         if self.order == min:
             return self.A.pop(0)[1]
         else:
