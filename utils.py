@@ -781,7 +781,8 @@ class BBSQueue(Queue):
     def extend(self, items):
         self.A.extend(items)
         #Sorting the list in order the reach the less costy node to evaluate in the next pop
-        self.A.sort(key=lambda x:x.hpluspcost)
+        self.A.sort(key=lambda x: x.hpluspcost)# why isnt hpluspcoth not reachable?
+
 
     def pop(self):
 
