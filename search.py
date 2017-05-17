@@ -83,7 +83,10 @@ class Node:
             result.append(x.parent)
             x = x.parent
         print "Path found: "
+        print
         return result
+
+
 
     def expand(self, problem):
         """Return a list of nodes reachable from this node. [Fig. 3.8]"""
@@ -114,38 +117,46 @@ def breadth_first_tree_search(problem):
     return tree_search(problem, FIFOQueue())
 
 def branch_and_bound(problem):
-    return tree_search(problem, BBQueue())
+    q = BBQueue()
+    a = tree_search(problem, q)
+    print q.count
+    return a
 
 
 def depth_first_tree_search(problem):
     """Search the deepest nodes in the search tree first. [p 74]"""
     return tree_search(problem, Stack())
 
-
-def graph_search(problem, fringe):
+def graph_search(problem, fringe, count=0):
     """Search through the successors of a problem to find a goal.
     The argument fringe should be an empty queue.
     If two paths reach a state, only use the best one. [Fig. 3.18]"""
     closed = {}
     fringe.append(Node(problem.initial))
+    count = 0
     while fringe:
         node = fringe.pop()
+        count+=1
         if problem.goal_test(node.state):
+            print count
             return node
         if node.state not in closed:
             closed[node.state] = True
             fringe.extend(node.expand(problem))
+    print count
     return None
 
 
 def breadth_first_graph_search(problem):
     """Search the shallowest nodes in the search tree first. [p 74]"""
-    return graph_search(problem, FIFOQueue())  # FIFOQueue -> fringe
-
+    q = FIFOQueue()
+    a = graph_search(problem, q)
+    return a
 
 def depth_first_graph_search(problem):
     """Search the deepest nodes in the search tree first. [p 74]"""
-    return graph_search(problem, Stack())
+    a = graph_search(problem, Stack())
+    return a
 
 
 def depth_limited_search(problem, limit=50):
@@ -187,7 +198,10 @@ def iterative_deepening_search(problem):
 # Informed (Heuristic) Search
 
 def branch_and_bound_subestimation(problem):
-    return tree_search(problem, PriorityQueue(f=lambda x: x.path_cost + problem.h(x)))
+    q = PriorityQueue(f=lambda x: x.path_cost + problem.h(x))
+    a =tree_search(problem, q)
+    print q.count
+    return a
 
 def best_first_graph_search(problem, f):
     """Search the nodes with the lowest f scores first.

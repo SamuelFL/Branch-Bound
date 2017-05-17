@@ -755,16 +755,18 @@ class BBQueue(Queue):
         #Sorting the list in order the reach the less costy node to evaluate in the next pop
         self.A.sort(key=lambda x:x.path_cost)
 
+    def popped(self):
+        return self.count
     def pop(self):
 
         self.count += 1
-        print "Popped node number:" + str(self.count)
+        #print "Popped node number:" + str(self.count)
 
-        print self.A
+       # print self.A
         return self.A.pop(0)
-
+"""
 class BBSQueue(Queue):
-    """Branch&Bound queue"""
+    #Branch&Bound queue
 
     def __init__(self):
         self.A = []
@@ -791,12 +793,14 @@ class BBSQueue(Queue):
 
         print self.A
         return self.A.pop(0)
+"""
 class FIFOQueue(Queue):
     """A First-In-First-Out Queue."""
 
     def __init__(self):
         self.A = []
         self.start = 0
+        self.count = 0
 
     def append(self, item):
         self.A.append(item)
@@ -806,8 +810,10 @@ class FIFOQueue(Queue):
 
     def extend(self, items):
         self.A.extend(items)
-
+    def popped(self):
+        return self.count
     def pop(self):
+        self.count+=1
         e = self.A[self.start]
         self.start += 1
         if self.start > 5 and self.start > len(self.A) / 2:
@@ -823,6 +829,7 @@ class PriorityQueue(Queue):
 
     def __init__(self, order=min, f=lambda x: x):
         update(self, A=[], order=order, f=f)
+        self.count = 0
 
     def append(self, item):
         bisect.insort(self.A, (self.f(item), item))
@@ -831,7 +838,8 @@ class PriorityQueue(Queue):
         return len(self.A)
 
     def pop(self):
-        print self.A
+        self.count+=1
+        #print self.A
         if self.order == min:
             return self.A.pop(0)[1]
         else:
