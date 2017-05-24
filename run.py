@@ -4,15 +4,17 @@ import search
 
 ab = search.GPSProblem('O', 'N', search.romania)
 
-
+print "Busqueda en anchura"
 print search.breadth_first_graph_search(ab).path()
+print "Busqueda en profundidad"
 print search.depth_first_graph_search(ab).path()
 #print search.iterative_deepening_search(ab).path()
 #print search.depth_limited_search(ab).path()
 #print search.astar_search(ab).path()
 
-
+print "Ramificacion y salto"
 print search.branch_and_bound(ab).path()
+print "Ramificacion y salto con subestimacion"
 print search.branch_and_bound_subestimation(ab).path()
 
 # Result:
